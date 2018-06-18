@@ -1,6 +1,7 @@
-import numpy
-import print1
-#if __name__ == 'main':
-print "12321313"
-print1.print1()
-print1.print2()
+
+
+if __name__ == '__main__':
+    print "12321313"
+else:
+    print "please run __init__.py"
+
