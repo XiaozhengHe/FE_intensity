@@ -1,4 +1,5 @@
 import cv2
+import os
 import numpy
 
 
@@ -22,12 +23,14 @@ def videorecording():
     w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     h = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    if os.path.exists("../../../../../../123.avi"):
+        os.remove("../../../../../../123.avi")
     out = cv2.VideoWriter("../../../../../../123.avi", fourcc, fps, (int(w), int(h)))
     while 1:
         ret, frame = cap.read()
         out.write(frame)
         cv2.imshow("Frame", frame)
-        if cv2.waitKey(1) & 0xFF ==ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     out.release()
