@@ -3,7 +3,6 @@ import os
 
 
 def videoplaying(video_path):
-    #video_path = "../../../test/data/video/video.mov"
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
     while cap.isOpened():

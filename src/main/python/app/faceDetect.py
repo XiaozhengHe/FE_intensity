@@ -54,3 +54,30 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
     cap.release()
     cv2.destroyAllWindows()
     return list_faces
+
+
+def real_time_detect():
+    cascade_path = "/Users/hexiaozheng/opencv/data/haarcascades/haarcascade_frontalface_default.xml"
+    face_cascade = cv2.CascadeClassifier(cascade_path)
+    cap = cv2.VideoCapture(0)
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if ret:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = face_cascade.detectMultiScale(
+                gray,
+                scaleFactor=1.1,
+                minNeighbors=5,
+                flags=cv2.CASCADE_SCALE_IMAGE,
+                minSize=(30, 30)
+            )
+            for (x, y, w, h) in faces:
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            cv2.imshow("Faces found", frame)
+            if cv2.waitKey(30) & 0xFF == ord('q'):
+                break
+        else:
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+    return
