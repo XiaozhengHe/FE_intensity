@@ -4,12 +4,14 @@ import numpy
 
 
 def videoplaying():
-    cap = cv2.VideoCapture("../../../test/data/video.mov")
+    video_path = "../../../test/data/video/video.mov"
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS)
     while cap.isOpened():
         ret, frame = cap.read()
         if ret:
             cv2.imshow("Frame", frame)
-            if cv2.waitKey(100) & 0xFF == ord('q'):
+            if cv2.waitKey(1000/int(fps)) & 0xFF == ord('q'):
                 break
         else:
             break
@@ -22,15 +24,17 @@ def videorecording():
     fps = cap.get(cv2.CAP_PROP_FPS)
     w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     h = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    if os.path.exists("../../../../../../123.avi"):
-        os.remove("../../../../../../123.avi")
-    out = cv2.VideoWriter("../../../../../../123.avi", fourcc, fps, (int(w), int(h)))
-    while 1:
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+    video_path = "../../../test/data/video/recorded.mov"
+    if os.path.exists(video_path):
+        os.remove(video_path)
+    out = cv2.VideoWriter(video_path, fourcc, fps, (int(w), int(h)))
+    while cap.isOpened():
         ret, frame = cap.read()
-        out.write(frame)
-        cv2.imshow("Frame", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if ret:
+            out.write(frame)
+            cv2.imshow("Frame", frame)
+        if cv2.waitKey(1000/int(fps)) & 0xFF == ord('q'):
             break
     cap.release()
     out.release()
