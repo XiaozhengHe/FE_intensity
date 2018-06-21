@@ -3,14 +3,18 @@ import faceDetect
 
 if __name__ == '__main__':
     print "12321313"
-    i = input("shuru")
+    i = input("1: video playing; 2: recording and detecting; 3: detecting video; 4: detecting image\n")
     if int(i) == 1:
-        videoReceive.videoplaying()
-    elif int(1) ==2:
-        videoReceive.videorecording()
-        faceDetect.frontalfacedetectingforvideo()
+        videoReceive.videoplaying("../../../test/data/video/video.mov")
+    elif int(i) == 2:
+        if videoReceive.videorecording():
+            faceDetect.frontalfacedetectingforvideo("../../../test/data/video/recorded.mov")
+        else:
+            pass
+    elif int(i) == 3:
+        faceDetect.frontalfacedetectingforvideo("../../../test/data/video/video.mov")
     else:
-        faceDetect.frontalfacedetectingforvideo()
+        faceDetect.frontalfacedetectingforimg("../../../test/data/img/abba.png")
 else:
     print "please run __init__.py"
 
