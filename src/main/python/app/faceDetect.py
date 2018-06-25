@@ -47,7 +47,7 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
             list_faces = list_faces + [fa]
             #  list_faces: faces in the all frames, each element is a frame
             cv2.imshow("Faces found", frame)
-            if cv2.waitKey(33) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         else:
             break
