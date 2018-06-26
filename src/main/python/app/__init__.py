@@ -1,5 +1,6 @@
 import videoReceive
 import faceDetect
+import applyLBP
 
 if __name__ == '__main__':
     print "12321313"
@@ -15,8 +16,9 @@ if __name__ == '__main__':
         faceDetect.frontalfacedetectingforvideo("../../../test/data/video/video.mov")
     elif int(i) == 4:
         faceDetect.real_time_detect()
-    else:
-        faceDetect.frontalfacedetectingforimg("../../../test/data/img/abba.png")
+    elif int(i) == 5:
+        faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/S046_005_00000001.png")
+        applyLBP.lbp_for_one_image(faces, image)
 else:
     print "please run __init__.py"
 
