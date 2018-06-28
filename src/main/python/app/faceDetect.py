@@ -17,6 +17,7 @@ def frontalfacedetectingforimg(img_path):    # return a list of "faces"
     print "Found %d faces" % len(faces)
     for (x, y, w, h) in faces:
         cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    print faces
     # cv2.imshow("Faces found", image)
     # cv2.waitKey(0)
     return faces, image_c
@@ -44,6 +45,7 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
                 fa = fa + [[x, y, w, h]]
+                print faces
             #  fa: faces in one frame, each element is a rectangle(face)
             list_faces = list_faces + [fa]
             #  list_faces: faces in the all frames, each element is a frame
