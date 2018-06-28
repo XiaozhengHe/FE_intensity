@@ -14,7 +14,7 @@ def lbp_for_one_image(faces, image):
         x, y, w, h = faces[0]
         img = image[y: y+h, x: x + w]   # face part
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        desc = LocalBinaryPatterns(8, 1)
+        desc = LocalBinaryPatterns(8, 2)
         desc.describe(gray)
         cv2.waitKey(0)
 
