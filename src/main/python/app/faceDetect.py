@@ -37,7 +37,7 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
             faces = face_cascade.detectMultiScale(
                 gray,
                 scaleFactor=1.1,
-                minNeighbors=8,
+                minNeighbors=10,
                 flags=cv2.CASCADE_SCALE_IMAGE,
                 minSize=(100, 100)
             )    # return a list of faces(rectangles)

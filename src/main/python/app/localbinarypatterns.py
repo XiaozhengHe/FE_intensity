@@ -1,7 +1,6 @@
 from skimage import feature
 import numpy as np
 from matplotlib import pyplot as plt
-import cv2
 
 
 class LocalBinaryPatterns:
@@ -14,7 +13,7 @@ class LocalBinaryPatterns:
         # compute the Local Binary Pattern representation
         # of the image, and then use the LBP representation
         # to build the histogram of patterns
-        lbp = feature.local_binary_pattern(gray_image, self.numPoints, self.radius, method="default")
+        lbp = feature.local_binary_pattern(gray_image, self.numPoints, self.radius, method="uniform")
         # cv2.imshow("LBP", lbp.astype(np.uint8)) # show method="default" lbp image, but cannot show method="uniform"
         (hist, _) = np.histogram(lbp.ravel(),
                                  bins=np.arange(0, self.numPoints + 3),
@@ -28,6 +27,7 @@ class LocalBinaryPatterns:
 
         # return the histogram of Local Binary Patterns
         print "hist after normalizing", hist
+        # showing the lbp image using plt
         plt.imshow(lbp, cmap="gray")
         plt.show()
         return hist

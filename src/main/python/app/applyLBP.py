@@ -16,5 +16,4 @@ def lbp_for_one_image(faces, image):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         desc = LocalBinaryPatterns(8, 1)
         desc.describe(gray)
-        cv2.waitKey(0)
 
