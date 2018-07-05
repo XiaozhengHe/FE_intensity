@@ -30,4 +30,7 @@ class LocalBinaryPatterns:
         # showing the lbp image using plt
         plt.imshow(lbp, cmap="gray")
         plt.show()
+        print "+++++:", hist+hist
+        t = [hist] + [hist]
+        print "+++++[]:", t
         return hist

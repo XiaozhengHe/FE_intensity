@@ -5,7 +5,6 @@ import numpy as np
 def noise_measuring(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imshow("img", gray)
-    print "img", img
     cv2.waitKey(0)
     # use GaussianBlur function to blur the image, blur is the blurred image
     gaussian_blur = cv2.GaussianBlur(gray, (5, 5), 3)

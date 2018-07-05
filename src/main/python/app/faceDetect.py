@@ -28,7 +28,6 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
     face_cascade = cv2.CascadeClassifier(cascade_path)
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
-    list_faces = []
     print "fps:", fps
     while cap.isOpened():
         ret, frame = cap.read()
@@ -41,13 +40,10 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
                 flags=cv2.CASCADE_SCALE_IMAGE,
                 minSize=(100, 100)
             )    # return a list of faces(rectangles)
-            fa = []
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                fa = fa + [[x, y, w, h]]
                 print faces
             #  fa: faces in one frame, each element is a rectangle(face)
-            list_faces = list_faces + [fa]
             #  list_faces: faces in the all frames, each element is a frame
             cv2.imshow("Faces found", frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -56,7 +52,7 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
             break
     cap.release()
     cv2.destroyAllWindows()
-    return list_faces
+    return
 
 
 def real_time_detect():
