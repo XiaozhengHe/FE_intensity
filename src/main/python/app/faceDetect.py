@@ -39,12 +39,10 @@ def frontalfacedetectingforvideo(video_path):    # return a list of faces_s
                 minNeighbors=10,
                 flags=cv2.CASCADE_SCALE_IMAGE,
                 minSize=(100, 100)
-            )    # return a list of faces(rectangles)
+            )    # return a list of faces(rectangles) in one frame
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
                 print faces
-            #  fa: faces in one frame, each element is a rectangle(face)
-            #  list_faces: faces in the all frames, each element is a frame
             cv2.imshow("Faces found", frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break

@@ -24,8 +24,8 @@ class LocalBinaryPatterns:
                 col = i % number_subregion
                 region_img = gray_image[region_w*row: region_w*(row+1), region_w*col: region_w*(col+1)]
                 region_lbp = feature.local_binary_pattern(region_img, self.numPoints, self.radius, method="default")
-                cv2.imshow("LBP", region_lbp.astype(np.uint8)) # show method="default" lbp image, but cannot show method="uniform"
-                cv2.waitKey(0)
+                # cv2.imshow("LBP", region_lbp.astype(np.uint8)) # show method="default" lbp image, but cannot show method="uniform"
+                # cv2.waitKey(0)
                 (region_hist, _) = np.histogram(region_lbp.ravel(),
                                                 bins=np.arange(0, self.numPoints + 3),
                                                 range=(0, self.numPoints+2))
@@ -35,10 +35,24 @@ class LocalBinaryPatterns:
                 region_hist /= (region_hist.sum() + eps)
                 print "single region histogram:", region_hist
 
+                # show the histogram
+                plt.style.use("ggplot")
+                (fig, ax) = plt.subplots()
+                plt.suptitle("lbp histogram")
+                plt.ylabel("percentage")
+                plt.xlabel("bins")
+                plt.gray()
+                # ax.imshow(region_img)
+                # ax.axis('off')
+                ax.hist(region_lbp.ravel(), density=True, bins=self.numPoints+2, range=(0, 2**self.numPoints))
+                plt.show()
+
+                cv2.imshow("LBP", region_lbp.astype(np.uint8))  # show method="default" lbp image, but cannot show method="uniform"
+                cv2.waitKey(0)
 
                 # concatenate the region_hist to his
                 hist = np.concatenate((hist, region_hist), axis=0)
-
+            # reshape to number = self.numPoints arrays, the histogram for each sub-region
             hist = np.reshape(hist, (-1, self.numPoints + 2))
             print "histogram of all sub-region:", hist
             return hist
