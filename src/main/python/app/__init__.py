@@ -2,6 +2,7 @@ import videoReceive
 import faceDetect
 import applyLBP
 import noiseMeasure
+import cv2
 
 
 def main():
