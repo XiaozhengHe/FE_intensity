@@ -2,7 +2,8 @@ import videoReceive
 import faceDetect
 import applyLBP
 import noiseMeasure
-import cv2
+import LBPimplementation
+import applyLBPi
 
 
 def main():
@@ -22,8 +23,9 @@ def main():
         faceDetect.real_time_detect()
     elif int(i) == 5:
         faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/S132_006_00000008.png")
-        noiseMeasure.noise_measuring(image)
-        applyLBP.lbp_for_one_image(faces, image)
+        #noiseMeasure.noise_measuring(image)
+        #applyLBP.lbp_for_one_image(faces, image)
+        applyLBPi.lbp_for_one_image(faces, image)
 
 
 if __name__ == '__main__':

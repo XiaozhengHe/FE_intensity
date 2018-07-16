@@ -22,9 +22,6 @@ def noise_measuring(img):
     for row, data in enumerate(noise):
         worksheet.write_row(row, 0, data)
 
-
-
-
     variance = np.var(noise)
     print noise[0][0]
     print "noise image variance:", variance
