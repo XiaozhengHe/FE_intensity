@@ -23,8 +23,8 @@ def main():
         faceDetect.real_time_detect()
     elif int(i) == 5:
         faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/S132_006_00000008.png")
-        #noiseMeasure.noise_measuring(image)
-        #applyLBP.lbp_for_one_image(faces, image)
+        noiseMeasure.noise_measuring(image)
+        # applyLBP.lbp_for_one_image(faces, image)
         applyLBPi.lbp_for_one_image(faces, image)
 
 
