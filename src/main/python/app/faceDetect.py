@@ -14,7 +14,7 @@ def frontalfacedetectingforimg(img_path):    # return a list of "faces"
         flags=cv2.CASCADE_SCALE_IMAGE,
         minSize=(100, 100)
     )    # return a list of rectangles
-    print "Found %d faces" % len(faces)
+    # print "Found %d faces" % len(faces)
     for (x, y, w, h) in faces:
         cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
     # print faces

@@ -24,34 +24,31 @@ def lbp_histogram(img, number_sub_region, eps=1e-7):
             # normalize the region histogram for one sub-region of the face
             region_hist = region_hist.astype("float")
             region_hist /= (region_hist.sum() + eps)
-            print "region hist:", region_hist
+            # print "sub-region histogram:", region_hist
 
             # show the histogram
             plt.style.use("ggplot")
             # fig, ax = plt.subplots()
-            plt.suptitle("lbp region histogram")
+            plt.suptitle("lbp sub-region histogram")
             plt.ylabel("percentage")
             plt.xlabel("bins")
             plt.gray()
 
-            plt.bar(np.arange(len(region_hist)), region_hist)
+            #plt.bar(np.arange(len(region_hist)), region_hist)
+            #plt.show()
 
-            # plt.hist(region_lbp.ravel(), bins=256, density=True, range=(0, 2 ** 8))
-            # ax.hist(region_hist)
-            plt.show()
-
-            cv2.imshow("lbp implementation image ", region_lbp)
-            cv2.waitKey(0)
+            #cv2.imshow("lbp implementation image ", region_lbp)
+            #cv2.waitKey(0)
 
             # concatenate the region_hist to hist
             hist = np.concatenate((hist, region_hist), axis=0)
 
-        plt.bar(np.arange(len(hist)), hist)
-        plt.show()
+        #plt.bar(np.arange(len(hist)), hist)
+        #plt.show()
 
         # reshape to number = 255 arrays, the histogram for each sub-region
-        print "hist before reshape:", hist
-        hist = np.reshape(hist, (-1, 256))
+        # print "histogram of all sub-regions:", hist
+        # hist = np.reshape(hist, (-1, 256))
         return hist
     else:
         print "The input of this function (lbp_histogram()) is not face, the w and h do not equal."

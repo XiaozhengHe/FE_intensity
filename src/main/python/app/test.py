@@ -14,7 +14,7 @@ def draw_vector(v0, v1, ax=None):
 rng = np.random.RandomState(1)
 x = np.dot(rng.rand(2, 2), rng.randn(2, 200)).T
 plt.scatter(x[:, 0], x[:, 1], alpha=0.2)
-pca = sklearn.decomposition.PCA(n_components=1)
+pca = sklearn.decomposition.PCA(n_components=2)
 # pca.fit(x)
 x_pca = pca.fit_transform(x)
 print("original shape:   ", x.shape)
