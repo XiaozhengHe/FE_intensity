@@ -32,7 +32,7 @@ def main():
     elif int(i) == 6:
         histogram_array = []
         i = 0
-        for filename in os.listdir("../../../test/data/img/006")[1:]:
+        for filename in sorted(os.listdir("../../../test/data/img/006")[1:]):
             # print "../../../test/data/img/006" + filename
             faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/006/" + filename)
             histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image)

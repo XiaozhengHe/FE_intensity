@@ -12,5 +12,5 @@ def lbp_for_one_image(faces, image):
     else:
         x, y, w, h = faces[0]
         face = image[y: y+h, x: x + w]   # face part
-        return LBPimplementation.lbp_histogram(face, 1)
+        return LBPimplementation.lbp_histogram(face, 2)
 
