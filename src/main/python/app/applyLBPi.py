@@ -2,7 +2,7 @@ import LBPimplementation
 
 
 #    input: a list of faces detected in faceDetect and one image or frame
-def lbp_for_one_image(faces, image):
+def lbp_for_one_image(faces, image, sub_region):
     if len(faces) == 0:
         print "No faces detected."
         return
@@ -12,5 +12,5 @@ def lbp_for_one_image(faces, image):
     else:
         x, y, w, h = faces[0]
         face = image[y: y+h, x: x + w]   # face part
-        return LBPimplementation.lbp_histogram(face, 2)
+        return LBPimplementation.lbp_histogram(face, sub_region)
 
