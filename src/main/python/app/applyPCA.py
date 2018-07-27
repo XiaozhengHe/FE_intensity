@@ -22,7 +22,8 @@ def draw_points(histogram_array, sub_region):
     print "prin_com:", prin_com
     print "prin_com len:", len(prin_com)
     print "prin_com[0] len:", len(prin_com[0])
-    plt.title("facial expression points with " + str(sub_region ** 2) + "sub-region")
+    plt.title("facial expression points with " + str(sub_region ** 2) + " sub-region")
     plt.xlabel("principal component")
     plt.ylabel("principal component values")
-    plt.show()
+    #plt.show()
+    return prin_com
