@@ -15,15 +15,15 @@ def draw_points(histogram_array, sub_region):
     # coordinate_y = histogram_array[:, 1]
     coordinate_x = prin_com[:, 0]
     coordinate_y = prin_com[:, 1]
-    # plt.scatter(histogram_array[:, 0], histogram_array[:, 1])
     colors = cm.rainbow(np.linspace(0, 1, len(coordinate_y)))
     for x, y, c in zip(coordinate_x, coordinate_y, colors):
         plt.scatter(x, y, color=c)
+    #plt.scatter(coordinate_x, coordinate_y)
     print "prin_com:", prin_com
     print "prin_com len:", len(prin_com)
     print "prin_com[0] len:", len(prin_com[0])
     plt.title("facial expression points with " + str(sub_region ** 2) + " sub-region")
     plt.xlabel("principal component")
     plt.ylabel("principal component values")
-    #plt.show()
+    plt.show()
     return prin_com
