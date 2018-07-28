@@ -38,11 +38,12 @@ def main():
         sub_region = 5  # the number of sub-regions, sub-region by sub-region
         p_c = np.zeros(shape=(1, 2))
         print "pc:", p_c
-        for folder in ['005', '006']:
+        #for folder in ['005', '006']:
+        for folder in ['S046_005', 'S074_005', 'S125_005', 'S132_006']:
             histogram_array = []
-            for filename in sorted(os.listdir("../../../test/data/img/%s" % folder))[1:]:
-                print "../../../test/data/img/%s/" % folder + filename
-                faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/%s/" % folder + filename)
+            for filename in sorted(os.listdir("../../../test/data/img/happy_faces/%s" % folder))[1:]:
+                print "../../../test/data/img/happy_faces/%s/" % folder + filename
+                faces, image = faceDetect.frontalfacedetectingforimg("../../../test/data/img/happy_faces/%s/" % folder + filename)
                 histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image, sub_region)
                 i = i + 1
                 histogram_array = np.concatenate((histogram_array, histogram_for_one_image), axis=0)
