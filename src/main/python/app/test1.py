@@ -1,35 +1,36 @@
-import cv2
+print(__doc__)
+
 import numpy as np
+from sklearn.svm import SVR
+import matplotlib.pyplot as plt
 
-class StatModel(object):
-    '''parent class - starting point to add abstraction'''
+# #############################################################################
+# Generate sample data
+X = np.sort(5 * np.random.rand(40, 1), axis=0)
+y = np.sin(X).ravel()
 
-    def load(self, fn):
-        self.model.load(fn)
+# #############################################################################
+# Add noise to targets
+y[::5] += 3 * (0.5 - np.random.rand(8))
 
-    def save(self, fn):
-        self.model.save(fn)
+# #############################################################################
+# Fit regression model
+svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
+svr_lin = SVR(kernel='linear', C=1e3)
+svr_poly = SVR(kernel='poly', C=1e3, degree=2)
+y_rbf = svr_rbf.fit(X, y).predict(X)
+y_lin = svr_lin.fit(X, y).predict(X)
+y_poly = svr_poly.fit(X, y).predict(X)
 
-
-class SVM(StatModel):
-    '''wrapper for OpenCV SimpleVectorMachine algorithm'''
-    def __init__(self):
-        self.model = cv2.SVM()
-
-    def train(self, samples, responses):
-        #setting algorithm parameters
-        params = dict( kernel_type = cv2.SVM_LINEAR,
-                       svm_type = cv2.SVM_C_SVC,
-                       C = 1 )
-        self.model.train(samples, responses, params = params)
-
-    def predict(self, samples):
-        return np.float32( [self.model.predict(s) for s in samples])
-
-
-samples = np.array(np.random.random((4,2)), dtype = np.float32)
-y_train = np.array([1.,0.,0.,1.], dtype = np.float32)
-
-clf = SVM()
-clf.train(samples, y_train)
-y_val = clf.predict(samples)
+# #############################################################################
+# Look at the results
+lw = 2
+plt.scatter(X, y, color='darkorange', label='data')
+plt.plot(X, y_rbf, color='navy', lw=lw, label='RBF model')
+plt.plot(X, y_lin, color='c', lw=lw, label='Linear model')
+plt.plot(X, y_poly, color='cornflowerblue', lw=lw, label='Polynomial model')
+plt.xlabel('data')
+plt.ylabel('target')
+plt.title('Support Vector Regression')
+plt.legend()
+plt.show()
