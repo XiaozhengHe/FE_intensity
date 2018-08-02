@@ -13,7 +13,6 @@ def train_test(principal_component):
     my_svr.fit(x_training, y_training)
     y_lin = my_svr.predict(x_training)
     print "y_lin:", y_lin
-    plt.plot(x_training, y_lin, color='c', label='Linear model')
-
-    plt.show()
+    # plt.plot(x_training, y_lin, color='c', label='Linear model')
+    # plt.show()
     return my_svr, y_lin

@@ -6,39 +6,60 @@ import applyPCA
 import numpy as np
 
 
-def happy_level(cap, sub_region, my_svm, y_lin):
-    fps = int(cap.get(cv2.CAP_PROP_FPS))  # FPS of the video
-    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))  # total count of the frame of the video
+def happy_pca(cap_path, sub_region):
+    cap = cv2.VideoCapture(cap_path)
     i = 0
+    histogram_array = []
     while cap.isOpened():
         ret, frame = cap.read()
         if ret:
             if (i % 10 == 0) and (i != 0):
+                print "Now applying the LBP algorithm in this video in frame:", str(i)
                 faces, image = faceDetect.frontalfacedetectingforimg(frame)
+                # one frame histogram
                 hist = applyLBPi.lbp_for_one_image(faces, image, sub_region)
-                hist = np.reshape(hist, (-1, (sub_region ** 2) * 256))
-                principal_component = applyPCA.draw_points(hist, sub_region)
+                # hist = np.reshape(hist, (-1, (sub_region ** 2) * 256))
+                # select 1 frame from each 10, and compose "histogram_array"
+                histogram_array = np.concatenate((histogram_array, hist), axis=0)
+            i = i + 1
+        else:
+            break
+    cap.release()
+    # cv2.destroyAllWindows()
+    histogram_array = np.reshape(histogram_array, (-1, (sub_region ** 2) * 256))
+    print "Now applying PCA in these frames selected..."
+    principal_component = applyPCA.draw_points(histogram_array, sub_region)
+    return principal_component
 
-                x_testing = []
-                for i in range(len(principal_component[:, 0])):
-                    x_testing = x_testing + [[float(principal_component[:, 0][i])]]
-                print "x_testing", x_testing
 
-                y_value = my_svm.predict(x_testing)
+def happy_level(cap_path, my_svm, y_lin, principal_component):
+    cap = cv2.VideoCapture(cap_path)
+    i = 0
+    t = 0
 
-                min_value = float(min(y_lin))
-                max_value = float(max(y_lin))
+    x_testing = []
+    for c_i in range(len(principal_component[:, 0])):
+        x_testing = x_testing + [[float(principal_component[:, 0][c_i])]]
+    # print "x_testing", x_testing
+    y_result = my_svm.predict(x_testing)
+    min_y = min(y_lin)
+    max_y = max(y_lin)
 
-                if float(y_value[0]) < min_value:
-                    print "happy level: 1"
-                elif float(y_value[0]) > max_value:
-                    print "happy level: 10"
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if ret:
+            if (i % 10 == 0) and (i != 0):
+                if y_result[t] <= min_y:
+                    print "happy_level: 10%"
+                elif y_result[t] >= max_y:
+                    print "happy_level: 90%"
                 else:
-                    perc = (y_value - min_value) / (max_value - min_value) * 100
-                    print "happy level: %s" % str(perc) + " %"
-            cv2.namedWindow("Video Playing", cv2.WINDOW_NORMAL)
-            frameS = cv2.resize(frame, (960, 540))
-            cv2.imshow("Video Playing", frameS)
+                    perc = (y_result[t] - min_y) / (max_y - min_y) * 100
+                    print "happy_level: %s" % str(perc) + "%"
+                t = t + 1
+            cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
+            frame_resize = cv2.resize(frame, (960, 540))
+            cv2.imshow("Video", frame_resize)
             i = i + 1
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -46,4 +67,3 @@ def happy_level(cap, sub_region, my_svm, y_lin):
             break
     cap.release()
     cv2.destroyAllWindows()
-    pass

@@ -28,6 +28,8 @@ def main():
             pass
     elif int(i) == 3:
         video = cv2.VideoCapture("../../../test/data/video/558_deliberate_smile_1.mp4")
+        length = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  # total count of the frame of the video
+        print "frame number:", length
         faceDetect.frontalfacedetectingforvideo(video)
     elif int(i) == 4:
         faceDetect.real_time_detect()
@@ -44,40 +46,41 @@ def main():
         p_c = np.zeros(shape=(1, 2))
         print "pc:", p_c
         #for folder in ['005', '006']:
-        for folder in ['S046_005', 'S074_005', 'S125_005', 'S130_013', 'S131_007', 'S132_006', 'S138_005']:
+        for folder in ['S046_005', 'S074_005', 'S130_013', 'S132_006']:
             histogram_array = []
             file_list = sorted(os.listdir("../../../test/data/img/happy_faces/%s" % folder))
             if file_list[0][-4:] != '.png':
                 file_list.pop(0)
             for filename in file_list:
-                print "../../../test/data/img/happy_faces/%s/" % folder + filename
+                # print "../../../test/data/img/happy_faces/%s/" % folder + filename
                 img = cv2.imread("../../../test/data/img/happy_faces/%s/" % folder + filename)
                 faces, image = faceDetect.frontalfacedetectingforimg(img)
                 histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image, sub_region)
                 i = i + 1
                 histogram_array = np.concatenate((histogram_array, histogram_for_one_image), axis=0)
-                print i
-                print filename
-                print len(histogram_array)
+                print "Detecting face and apply LBP in image:", filename
             histogram_array = np.reshape(histogram_array, (-1, (sub_region ** 2) * 256))
-            print histogram_array
-            print "len:", len(histogram_array), len(histogram_array[0])
+            #print histogram_array
+            #print "len:", len(histogram_array), len(histogram_array[0])
             principal_components = applyPCA.draw_points(histogram_array, sub_region)
             p_c = np.concatenate((p_c, principal_components))
-            print "pc:", p_c
+            print "Apply PCA in folder:", folder
+            #print "pc:", p_c
         p_c = np.delete(p_c, 0, axis=0)
-        print "p_c:", p_c
+        #print "p_c:", p_c
         # applyPCA.draw_points(p_c, sub_region)
-        coordinate_x = p_c[:, 0]
-        coordinate_y = p_c[:, 1]
-        #colors = cm.rainbow(np.linspace(0, 1, len(coordinate_y)))
-        #for x, y, c in zip(coordinate_x, coordinate_y, colors):
-        #    plt.scatter(x, y, color=c)
-        plt.scatter(coordinate_x, coordinate_y, color='r')
-        plt.show()
+        # coordinate_x = p_c[:, 0]
+        # coordinate_y = p_c[:, 1]
+        # colors = cm.rainbow(np.linspace(0, 1, len(coordinate_y)))
+        # for x, y, c in zip(coordinate_x, coordinate_y, colors):
+        #     plt.scatter(x, y, color=c)
+        # plt.scatter(coordinate_x, coordinate_y, color='r')
+        # plt.show()
         my_svm, y_lin = applySVM.train_test(p_c)
-        cap = cv2.VideoCapture("../../../test/data/video/558_deliberate_smile_1.mp4")
-        happylevel.happy_level(cap, sub_region, my_svm, y_lin)
+        cap_path = "../../../test/data/video/003_deliberate_smile_1.mp4"
+        # cap = cv2.VideoCapture(cap_path)
+        prin_component = happylevel.happy_pca(cap_path, sub_region)
+        happylevel.happy_level(cap_path, my_svm, y_lin, prin_component)
         '''
         x_training = []
         for i in range(len(p_c[:, 0])):

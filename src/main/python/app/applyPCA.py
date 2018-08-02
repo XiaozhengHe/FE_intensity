@@ -8,13 +8,13 @@ def draw_points(histogram_array, sub_region):
     pca = PCA(n_components=2)
     # pca.fit_transform(histogram_array)
     pca.fit(histogram_array)
-    print "pca components:", pca.components_
-    print "fit pca variance ratio:", pca.explained_variance_ratio_
+    # print "pca components:", pca.components_
+    # print "fit pca variance ratio:", pca.explained_variance_ratio_
     prin_com = pca.transform(histogram_array)
     # coordinate_x = histogram_array[:, 0]
-    print "histogram_array:", histogram_array
-    print "prin_com:", prin_com
-    # coordinate_y = histogram_array[:, 1]
+    # print "histogram_array:", histogram_array
+    # print "prin_com:", prin_com
+    '''
     coordinate_x = prin_com[:, 0]
     coordinate_y = prin_com[:, 1]
     colors = cm.rainbow(np.linspace(0, 1, len(coordinate_y)))
@@ -28,4 +28,5 @@ def draw_points(histogram_array, sub_region):
     plt.xlabel("principal component")
     plt.ylabel("principal component values")
     plt.show()
+    '''
     return prin_com
