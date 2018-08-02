@@ -4,6 +4,7 @@ import applyLBP
 import noiseMeasure
 import LBPimplementation
 import applyLBPi
+import happylevel
 import os
 import numpy as np
 import applyPCA
@@ -74,7 +75,9 @@ def main():
         #    plt.scatter(x, y, color=c)
         plt.scatter(coordinate_x, coordinate_y, color='r')
         plt.show()
-        applySVM.train_test(p_c)
+        my_svm, y_lin = applySVM.train_test(p_c)
+        cap = cv2.VideoCapture("../../../test/data/video/558_deliberate_smile_1.mp4")
+        happylevel.happy_level(cap, sub_region, my_svm, y_lin)
         '''
         x_training = []
         for i in range(len(p_c[:, 0])):

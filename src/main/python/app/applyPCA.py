@@ -12,6 +12,8 @@ def draw_points(histogram_array, sub_region):
     print "fit pca variance ratio:", pca.explained_variance_ratio_
     prin_com = pca.transform(histogram_array)
     # coordinate_x = histogram_array[:, 0]
+    print "histogram_array:", histogram_array
+    print "prin_com:", prin_com
     # coordinate_y = histogram_array[:, 1]
     coordinate_x = prin_com[:, 0]
     coordinate_y = prin_com[:, 1]
