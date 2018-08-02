@@ -7,8 +7,10 @@ def lbp_for_one_image(faces, image, sub_region):
         print "No faces detected."
         return
     elif len(faces) > 1:
-        print "Sorry, more than one facial expression is not supported now."
-        return
+        print "Detect %d faces in one frame, only one face in one frame is supported." % len(faces)
+        x, y, w, h = faces[0]
+        face = image[y: y + h, x: x + w]  # face part
+        return LBPimplementation.lbp_histogram(face, sub_region)
     else:
         x, y, w, h = faces[0]
         face = image[y: y+h, x: x + w]   # face part

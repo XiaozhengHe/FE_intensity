@@ -10,7 +10,7 @@ def frontalfacedetectingforimg(image):    # return a list of "faces"
     faces = face_cascade.detectMultiScale(
         gray,
         scaleFactor=1.1,
-        minNeighbors=8,
+        minNeighbors=15,
         flags=cv2.CASCADE_SCALE_IMAGE,
         minSize=(100, 100)
     )    # return a list of rectangles
@@ -36,7 +36,7 @@ def frontalfacedetectingforvideo(cap):    # return a list of faces_s
             faces = face_cascade.detectMultiScale(
                 gray,
                 scaleFactor=1.1,
-                minNeighbors=10,
+                minNeighbors=15,
                 flags=cv2.CASCADE_SCALE_IMAGE,
                 minSize=(100, 100)
             )    # return a list of faces(rectangles) in one frame
@@ -66,9 +66,9 @@ def real_time_detect():
             faces = face_cascade.detectMultiScale(
                 gray,
                 scaleFactor=1.1,
-                minNeighbors=5,
+                minNeighbors=10,
                 flags=cv2.CASCADE_SCALE_IMAGE,
-                minSize=(30, 30)
+                minSize=(100, 100)
             )
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)

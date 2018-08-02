@@ -36,7 +36,6 @@ def happy_level(cap_path, my_svm, y_lin, principal_component):
     cap = cv2.VideoCapture(cap_path)
     i = 0
     t = 0
-
     x_testing = []
     for c_i in range(len(principal_component[:, 0])):
         x_testing = x_testing + [[float(principal_component[:, 0][c_i])]]
@@ -44,7 +43,7 @@ def happy_level(cap_path, my_svm, y_lin, principal_component):
     y_result = my_svm.predict(x_testing)
     min_y = min(y_lin)
     max_y = max(y_lin)
-
+    print "Below showing the happy facial expression indices:"
     while cap.isOpened():
         ret, frame = cap.read()
         if ret:
@@ -52,7 +51,7 @@ def happy_level(cap_path, my_svm, y_lin, principal_component):
                 if y_result[t] <= min_y:
                     print "happy_level: 10%"
                 elif y_result[t] >= max_y:
-                    print "happy_level: 90%"
+                    print "happy_level: 95%"
                 else:
                     perc = (y_result[t] - min_y) / (max_y - min_y) * 100
                     print "happy_level: %s" % str(perc) + "%"

@@ -15,37 +15,43 @@ import cv2
 
 
 def main():
-    print "12321313"
+    cap_path = "../../../test/data/video/017_deliberate_smile_1.mp4"
+    recorded_path = "../../../test/data/video/recorded.mov"
+    image_path = "../../../test/data/img/S132_006_00000008.png"
     i = input(
-        "1: video playing; 2: recording and detecting; 3: detecting video; 4: read-time detect; 5: detecting image\n")
+        "1: Detecting faces from an image;\n"
+        "2: Video playing;\n"
+        "3: Recording and detecting faces;\n"
+        "4: Detecting faces from a video;\n"
+        "5: Real-time detecting faces;\n"
+        "6: Showing happiness indices.\n")
     if int(i) == 1:
-        videoReceive.videoplaying("../../../test/data/video/558_deliberate_smile_1.mp4")
-    elif int(i) == 2:
-        if videoReceive.videorecording():
-            video = cv2.VideoCapture("../../../test/data/video/recorded.mov")
-            faceDetect.frontalfacedetectingforvideo(video)
-        else:
-            pass
-    elif int(i) == 3:
-        video = cv2.VideoCapture("../../../test/data/video/558_deliberate_smile_1.mp4")
-        length = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  # total count of the frame of the video
-        print "frame number:", length
-        faceDetect.frontalfacedetectingforvideo(video)
-    elif int(i) == 4:
-        faceDetect.real_time_detect()
-    elif int(i) == 5:
         sub_region = 1
-        img = cv2.imread("../../../test/data/img/S132_006_00000008.png")
+        img = cv2.imread(image_path)
         faces, image = faceDetect.frontalfacedetectingforimg(img)
         noiseMeasure.noise_measuring(image)
         # applyLBP.lbp_for_one_image(faces, image)
         histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image, sub_region)
+    elif int(i) == 2:
+        videoReceive.videoplaying(cap_path)
+    elif int(i) == 3:
+        if videoReceive.videorecording():
+            video = cv2.VideoCapture(recorded_path)
+            faceDetect.frontalfacedetectingforvideo(video)
+        else:
+            pass
+    elif int(i) == 4:
+        video = cv2.VideoCapture(cap_path)
+        length = int(video.get(cv2.CAP_PROP_FRAME_COUNT))  # total count of the frame of the video
+        print "frame number:", length
+        faceDetect.frontalfacedetectingforvideo(video)
+    elif int(i) == 5:
+        faceDetect.real_time_detect()
     elif int(i) == 6:
         i = 0
         sub_region = 5  # the number of sub-regions, sub-region by sub-region
+        # cap_path = "../../../test/data/video/010_deliberate_smile_3.mp4"  # the path of the video detecting
         p_c = np.zeros(shape=(1, 2))
-        print "pc:", p_c
-        #for folder in ['005', '006']:
         for folder in ['S046_005', 'S074_005', 'S130_013', 'S132_006']:
             histogram_array = []
             file_list = sorted(os.listdir("../../../test/data/img/happy_faces/%s" % folder))
@@ -77,7 +83,6 @@ def main():
         # plt.scatter(coordinate_x, coordinate_y, color='r')
         # plt.show()
         my_svm, y_lin = applySVM.train_test(p_c)
-        cap_path = "../../../test/data/video/003_deliberate_smile_1.mp4"
         # cap = cv2.VideoCapture(cap_path)
         prin_component = happylevel.happy_pca(cap_path, sub_region)
         happylevel.happy_level(cap_path, my_svm, y_lin, prin_component)
@@ -95,25 +100,6 @@ def main():
         
         plt.show()
         '''
-    elif int(i) == 7:
-        histogram_array = []
-        i = 0
-        sub_region = 6  # the number of sub-regions, sub-region by sub-region
-        for filename in sorted(os.listdir("../../../test/data/img/005"))[1:]:
-            print "../../../test/data/img/005/" + filename
-            img = cv2.imread("../../../test/data/img/005/" + filename)
-            faces, image = faceDetect.frontalfacedetectingforimg(img)
-            histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image, sub_region)
-            i = i + 1
-            histogram_array = np.concatenate((histogram_array, histogram_for_one_image), axis=0)
-            print i
-            print filename
-            print len(histogram_array)
-        histogram_array = np.reshape(histogram_array, (-1, (sub_region ** 2) * 256))
-        print histogram_array
-        print "len:", len(histogram_array), len(histogram_array[0])
-        principal_components = applyPCA.draw_points(histogram_array, sub_region)
-        applySVM.train_test(principal_components)
 
 
 if __name__ == '__main__':
