@@ -56,6 +56,8 @@ def happy_level(cap_path, my_svm, y_lin, principal_component):
                     perc = (y_result[t] - min_y) / (max_y - min_y) * 100
                     print "happy_level: %s" % str(perc) + "%"
                 t = t + 1
+                if cv2.waitKey(0) & 0xFF == ord('q'):
+                    break
             cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
             frame_resize = cv2.resize(frame, (960, 540))
             cv2.imshow("Video", frame_resize)
