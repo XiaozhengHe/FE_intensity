@@ -20,10 +20,10 @@ Figure 5.10: The beginning of the program<Br/>
 
 Then, users could input an integer between 1 and 6 to make the program do the corresponding work. We only consider the situation when the user inputs “6”, because this is what the program is analysing. After inputting 6, the program will show the intensity of the person’s facial expressions in the video which is accepted by the program (the video can be changed to another one by change the path to it), and the intensity will be shown using a percentage. Figure 5.11 shows the first selected frame’s facial expression intensity of the person’s facial expression in the video, and the happy intensity is 30.12%.<Br/>
 ![image](https://github.com/XiaozhengHe/FE_intensity/blob/master/src/test/data/img/testing_results/1.png)<Br/>
-Figure 5.11 The happy level of the first selected frame<Br/>
+Figure 5.11 The happy level of the first selected frame<Br/><Br/>
 For a video, it is not essential to process all frames of it because it will be time-consuming and meaningless to process. We choose to process every tenth frame. What is more, the intensity of the facial expression of that frame is expressed as a percentage. Figure 5.12 shows the percentage of the happy facial expressions in the third selected frame, and the happy intensity is 60.58%.<Br/>
 ![image](https://github.com/XiaozhengHe/FE_intensity/blob/master/src/test/data/img/testing_results/2.png)<Br/>
-Figure 5.12: The happy level of the third selected frame<Br/>
+Figure 5.12: The happy level of the third selected frame<Br/><Br/>
 Figure 5.13 shows the percentage of the happy facial expressions in the seventh selected frame, and the happy intensity is 77.56%.<Br/>
 ![image](https://github.com/XiaozhengHe/FE_intensity/blob/master/src/test/data/img/testing_results/3.png)<Br/>
 Figure 5.13: The happy level of the seventh selected frame<Br/>
