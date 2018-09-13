@@ -26,10 +26,10 @@ def main():
         "5: Real-time detecting faces;\n"
         "6: Showing happiness indices.\n")
     if int(i) == 1:
-        sub_region = 1
+        sub_region = 5
         img = cv2.imread(image_path)
         faces, image = faceDetect.frontalfacedetectingforimg(img)
-        noiseMeasure.noise_measuring(image)
+        # noiseMeasure.noise_measuring(image)
         # applyLBP.lbp_for_one_image(faces, image)
         histogram_for_one_image = applyLBPi.lbp_for_one_image(faces, image, sub_region)
     elif int(i) == 2:
@@ -75,13 +75,13 @@ def main():
         p_c = np.delete(p_c, 0, axis=0)
         #print "p_c:", p_c
         # applyPCA.draw_points(p_c, sub_region)
-        # coordinate_x = p_c[:, 0]
-        # coordinate_y = p_c[:, 1]
+        coordinate_x = p_c[:, 0]
+        coordinate_y = p_c[:, 1]
         # colors = cm.rainbow(np.linspace(0, 1, len(coordinate_y)))
         # for x, y, c in zip(coordinate_x, coordinate_y, colors):
         #     plt.scatter(x, y, color=c)
-        # plt.scatter(coordinate_x, coordinate_y, color='r')
-        # plt.show()
+        plt.scatter(coordinate_x, coordinate_y, color='r')
+        plt.show()
         my_svm, y_lin = applySVM.train_test(p_c)
         # cap = cv2.VideoCapture(cap_path)
         prin_component = happylevel.happy_pca(cap_path, sub_region)

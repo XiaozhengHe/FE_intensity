@@ -15,9 +15,13 @@ def lbp_histogram(img, number_sub_region, eps=1e-7):
             col = t % number_sub_region
             region_img = img_gray[region_w * row: region_w * (row + 1), region_w * col: region_w * (col + 1)]
             region_lbp = img_lbp[region_w * row: region_w * (row + 1), region_w * col: region_w * (col + 1)]
+
             for i in range(0, region_w):
                 for j in range(0, region_w):
                     region_lbp[i, j] = lbp_calculate_pixel(region_img, i, j)
+
+            #cv2.imshow("region_lbp", region_lbp)
+            #cv2.waitKey(0)
 
             (region_hist, _) = np.histogram(region_lbp.ravel(), bins=256, range=(0, 2 ** 8))
 
@@ -29,13 +33,13 @@ def lbp_histogram(img, number_sub_region, eps=1e-7):
             # show the histogram
             plt.style.use("ggplot")
             # fig, ax = plt.subplots()
-            plt.title("lbp sub-region histogram")
+            # plt.title("lbp sub-region histogram")
             #plt.ylabel("percentage")
             #plt.xlabel("bins")
             plt.gray()
 
-            # plt.bar(np.arange(len(region_hist)), region_hist)
-            # plt.show()
+            #plt.bar(np.arange(len(region_hist)), region_hist)
+            #plt.show()
 
             # cv2.imshow("lbp implementation image ", region_lbp)
             # cv2.waitKey(0)
@@ -43,8 +47,8 @@ def lbp_histogram(img, number_sub_region, eps=1e-7):
             # concatenate the region_hist to hist
             hist = np.concatenate((hist, region_hist), axis=0)
 
-        # plt.bar(np.arange(len(hist)), hist)
-        # plt.show()
+        #plt.bar(np.arange(len(hist)), hist)
+        #plt.show()
 
         # reshape to number = 255 arrays, the histogram for each sub-region
         # print "histogram of all sub-regions:", hist
