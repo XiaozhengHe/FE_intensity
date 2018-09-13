@@ -15,7 +15,7 @@ using principal component analysis algorithm(PCA) to reduce the dimensionality
 using support vector machine(SVM) to get a linear regression function
 
 This project does not make the graphical user interface because of time limits. All programs are executed in the command line in PyCharm. Figure 5.10 shows the beginning of the program when it is executed.
-(https://github.com/XiaozhengHe/FE_intensity/blob/master/src/test/data/img/testing_results/begining.png)
+![image](https://github.com/XiaozhengHe/FE_intensity/blob/master/src/test/data/img/testing_results/begining.png)
 Figure 5.10: The beginning of the program
 
 Then, users could input an integer between 1 and 6 to make the program do the corresponding work. We only consider the situation when the user inputs “6”, because this is what the program is analysing. After inputting 6, the program will show the intensity of the person’s facial expressions in the video which is accepted by the program (the video can be changed to another one by change the path to it), and the intensity will be shown using a percentage. Figure 5.11 shows the first selected frame’s facial expression intensity of the person’s facial expression in the video, and the happy intensity is 30.12%.
